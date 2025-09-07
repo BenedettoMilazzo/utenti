@@ -1,5 +1,5 @@
 # Ignore entire frontend folder except .gitignore (optional)
-frontend/
+#frontend/
 
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
