@@ -1,0 +1,31 @@
+<div class="d-flex">
+  <!-- Sidebar -->
+  <app-sidebar 
+    [isOpen]="isSidebarOpen">
+  </app-sidebar>
+
+  <!-- Contenuto principale -->
+  <div [ngClass]="{'sidebar-closed': !isSidebarOpen}" class="flex-grow-1 d-flex flex-column min-vh-100">
+    <app-navbar-admin [isSidebarOpen]="isSidebarOpen"></app-navbar-admin>
+
+    <main class="flex-grow-1 p-3">
+      <router-outlet></router-outlet>
+    </main>
+
+    <app-footer-admin></app-footer-admin>
+  </div>
+
+  <!-- Toggle button -->
+  <button class="btn btn-sm btn-light position-absolute"
+        [ngStyle]="{'left': isSidebarOpen ? '220px' : '60px', 'top':'10px', 'z-index':'1000'}"
+        (click)="toggleSidebar()">
+  <svg *ngIf="isSidebarOpen" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L6.707 7l4.647 4.646a.5.5 0 0 1-.708.708l-5-5a.5.5 0 0 1 0-.708l5-5a.5.5 0 0 1 .708 0z"/>
+  </svg>
+  <svg *ngIf="!isSidebarOpen" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l5 5a.5.5 0 0 1 0 .708l-5 5a.5.5 0 0 1-.708-.708L9.293 7 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+  </svg>
+</button>
+
+
+</div>

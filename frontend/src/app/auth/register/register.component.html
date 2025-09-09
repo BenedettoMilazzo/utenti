@@ -1,1 +1,77 @@
-<p>register works!</p>
+<!-- Navbar -->
+<app-navbar></app-navbar>
+
+<!-- Contenuto principale della home -->
+<main class="container mt-4">
+   <div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="card text-dark p-4 shadow-sm" style="width: 400px; background-color: #fff;">
+    <div class="card-body">
+      <h3 class="card-title text-center mb-4">Registrazione Utente</h3>
+
+      <form (ngSubmit)="onRegister()" #registerForm="ngForm">
+
+        <!-- Nome -->
+        <div class="mb-3">
+          <label for="name" class="form-label">Nome</label>
+          <input type="text"
+                 class="form-control"
+                 id="nominativo"
+                 name="nominativo"
+                 required
+                 [(ngModel)]="user.nominativo"
+                 placeholder="Inserisci il tuo nome">
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email"
+                 class="form-control"
+                 id="email"
+                 name="email"
+                 required
+                 [(ngModel)]="user.email"
+                 placeholder="Inserisci la tua email">
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password"
+                 class="form-control"
+                 id="password"
+                 name="password"
+                 required
+                 [(ngModel)]="user.password"
+                 placeholder="Inserisci la password">
+        </div>
+
+        <!-- Telefono -->
+        <div class="mb-3">
+          <label for="telefono" class="form-label">Telefono</label>
+          <input type="text"
+                 class="form-control"
+                 id="telefono"
+                 name="telefono"
+                 required
+                 [(ngModel)]="user.telefono"
+                 placeholder="Inserisci il telefono">
+        </div>
+
+        <!-- Messaggio di errore -->
+        <div *ngIf="errorMessage" class="text-danger mb-3 text-center">
+          {{ errorMessage }}
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn btn-dark w-100">Registrati</button>
+
+      </form>
+    </div>
+  </div>
+</div>
+ 
+</main>
+
+<!-- Footer -->
+<app-footer></app-footer>

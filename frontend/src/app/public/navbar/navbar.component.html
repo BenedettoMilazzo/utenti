@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/">Il Mio Sito</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/">Home</a>
+        </li>
+
+        <li class="nav-item" *ngIf="loggedIn$ | async">
+          <a class="nav-link" routerLink="/utenti">Utenti</a>
+        </li>
+
+        <!-- Mostra Registrazione e Accedi solo se non loggato -->
+        <li class="nav-item" *ngIf="!(loggedIn$ | async)">
+          <a class="nav-link" routerLink="/register">Registrazione</a>
+        </li>
+        <li class="nav-item" *ngIf="!(loggedIn$ | async)">
+          <a class="nav-link" routerLink="/login">Accedi</a>
+        </li>
+
+        <!-- Dropdown nome utente e logout -->
+        <li class="nav-item dropdown" *ngIf="loggedIn$ | async">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            {{ userName$ | async }}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" routerLink="/admin/dashboard">Dashboard</a></li>
+            <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
+          </ul>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>

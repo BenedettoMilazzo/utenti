@@ -1,0 +1,41 @@
+/* Sidebar width */
+.sidebar-open { width: 220px; transition: width 0.3s; }
+.sidebar-closed { width: 60px; transition: width 0.3s; }
+
+.nav-link i { transition: all 0.3s; }
+
+
+/* Toggle button */
+.toggle-btn {
+  border-radius: 50%;
+  z-index: 1000;
+}
+
+/* Menu link */
+.nav-link {
+  color: #fff;
+  padding: 5px;
+  border-radius: 8px;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.nav-link:hover { background-color: #495057; color: #fff; text-decoration: none; }
+.active-link { background-color: #0d6efd; color: #fff; }
+
+/* Icon-only view */
+.sidebar-closed .nav-link i { margin: 0 auto; display: block; }
+.sidebar-closed .nav-link span { display: none; }
+
+/* Tooltip */
+.nav-link[title]:hover::after {
+  content: attr(title);
+  position: absolute;
+  left: 70px;
+  background-color: #000;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 2000;
+}

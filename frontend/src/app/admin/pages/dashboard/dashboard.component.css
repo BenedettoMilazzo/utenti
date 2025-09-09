@@ -1,0 +1,18 @@
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.card-hover:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+}
+
+/* Icone animate leggermente */
+.card-hover i {
+  transition: transform 0.3s ease;
+}
+
+.card-hover:hover i {
+  transform: rotate(15deg) scale(1.2);
+}
