@@ -2,7 +2,7 @@
   
   <!-- Pulsante aggiungi utente (spostato a destra) -->
   <div class="d-flex justify-content-end mb-3">
-    <button class="btn btn-primary">
+    <button class="btn btn-primary" (click)="openModal()">
       <i class="fas fa-plus me-1"></i> Aggiungi utente
     </button>
   </div>
@@ -10,11 +10,11 @@
   <div class="">
     <div class="card-body">
       <div class="d-flex align-items-center mb-3">
-        <i class="bi bi-people fs-1 me-3 text-success"></i>
+        <!--<i class="bi bi-people fs-1 me-3 text-success"></i>
         <div>
           <h2 class="card-title mb-0">Utenti</h2>
           <small class="text-muted">Gestione utenti registrati</small>
-        </div>
+        </div>-->
       </div>
 
       <table id="utentiTable" class="table table-striped table-hover">
@@ -34,9 +34,18 @@
             <td>{{utente.nominativo}}</td>
             <td>{{utente.email}}</td>
             <td>{{utente.telefono}}</td>
-            <td>{{utente.ruolo}}</td>
             <td>
-              <button class="btn btn-sm btn-primary me-1"><i class="fas fa-edit"></i></button>
+              <span 
+                class="badge" 
+                [ngClass]="{
+                  'bg-danger': utente.ruolo === 'admin',
+                  'bg-success': utente.ruolo === 'user'
+                }">
+                {{ utente.ruolo }}
+              </span>
+            </td>
+            <td>
+              <button class="btn btn-sm btn-primary me-1" (click)="openEditModal(utente)"><i class="fas fa-edit"></i></button>
               <button class="btn btn-sm btn-danger" (click)="deleteUtente(utente)"><i class="fas fa-trash"></i></button>
             </td>
           </tr>
@@ -47,3 +56,12 @@
   </div>
 </div>
 
+<!-- Modale Add User -->
+<app-add-user #addUserModal (utenteAggiunto)="caricaUtenti()"></app-add-user>
+
+<!-- Modale Edit User -->
+<app-edit-user
+  #editUserModal
+  [utente]="selectedUser"
+  (utenteAggiornato)="caricaUtenti()">
+</app-edit-user>

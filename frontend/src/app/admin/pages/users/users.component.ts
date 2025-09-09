@@ -1,8 +1,10 @@
-import { Component, AfterViewInit, OnInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit, ViewChild } from '@angular/core';
 import * as $ from 'jquery';
 import 'datatables.net';
 import 'datatables.net-bs5';
 import { UsersService, Utente } from 'src/app/core/services/users.service';
+import { AddUserComponent } from './add-user/add-user.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
 
 @Component({
   selector: 'app-utenti',
@@ -12,19 +14,22 @@ import { UsersService, Utente } from 'src/app/core/services/users.service';
 export class UsersComponent implements AfterViewInit, OnInit {
   
   utenti: Utente[] = [];
-  nuovoUtente: Utente = { nominativo: '', email: '', telefono: '', ruolo: 'User' };
+  nuovoUtente: Utente = { nominativo: '', email: '', password: '', telefono: '', ruolo: 'user' };
   
+  @ViewChild(AddUserComponent) addUserModal!: AddUserComponent;
+  @ViewChild('editUserModal') editUserModal!: EditUserComponent;
+
+  selectedUser!: Utente; // 🔹 utente selezionato per modifica
+
   constructor(private readonly usersService: UsersService) { }
 
-  // Metodo eseguito dopo che la vista è stata inizializzata
   ngAfterViewInit(): void {
-    // Inizializza DataTable sulla tabella con id #utentiTable
     ($('#utentiTable') as any).DataTable({
-      paging: true,       // attiva la paginazione
-      searching: true,    // attiva la ricerca
-      ordering: true,     // attiva l'ordinamento
-      info: true,         // mostra info tipo "Mostrando 1 a 10 di 50 utenti"
-      lengthChange: false // disabilita il cambio del numero di righe per pagina
+      paging: true,
+      searching: true,
+      ordering: true,
+      info: true,
+      lengthChange: false
     });
   }
 
@@ -33,31 +38,43 @@ export class UsersComponent implements AfterViewInit, OnInit {
   }
 
   caricaUtenti() {
-  this.usersService.getUtenti().subscribe({
-    next: data => {
-      this.utenti = data;
+    this.usersService.getUtenti().subscribe({
+      next: data => {
+        this.utenti = data;
 
-      // Distruggi la vecchia DataTable se esiste
-      const table = ($('#utentiTable') as any).DataTable();
-      if (table) {
-        table.destroy();
-      }
+        const table = ($('#utentiTable') as any).DataTable();
+        if (table) table.destroy();
 
-      // Inizializza DataTable nuovamente
-      setTimeout(() => {
-        ($('#utentiTable') as any).DataTable({
-          paging: true,
-          searching: true,
-          ordering: true,
-          info: true,
-          lengthChange: false
+        setTimeout(() => {
+          ($('#utentiTable') as any).DataTable({
+            paging: true,
+            searching: true,
+            ordering: true,
+            info: true,
+            lengthChange: false
+          });
         });
-      });
-    },
-    error: err => console.error('Errore caricamento utenti', err)
-  });
-}
+      },
+      error: err => console.error('Errore caricamento utenti', err)
+    });
+  }
 
+  openModal() {
+    this.addUserModal.open();
+  }
+
+  // 🔹 Metodo completo per aprire la modale EditUser
+  openEditModal(utente: Utente) {
+    if (!utente.id) {
+      console.error('Utente senza ID:', utente);
+      return;
+    }
+
+    // Copia l'utente selezionato per evitare effetti collaterali
+    this.selectedUser = { ...utente };
+
+    // La modale si aprirà automaticamente nel figlio tramite ngOnChanges
+  }
 
   deleteUtente(utente: Utente) {
     if (confirm(`Vuoi eliminare l'utente ${utente.nominativo}?`)) {

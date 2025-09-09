@@ -7,6 +7,7 @@ export interface Utente {
   id?: number;
   nominativo: string;
   email: string;
+  password: string;
   ruolo: string;
   telefono?: string;
   stato?: string;

@@ -27,6 +27,7 @@ import { UsersComponent } from './admin/pages/users/users.component';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { AddUserComponent } from './admin/pages/users/add-user/add-user.component';
 import { EditUserComponent } from './admin/pages/users/edit-user/edit-user.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,8 @@ import { EditUserComponent } from './admin/pages/users/edit-user/edit-user.compo
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,  // necessario
+    ToastrModule.forRoot({ positionClass: 'toast-top-right' }), // posizione e opzioni
     AppRoutingModule,
     FormsModule,
     HttpClientModule,

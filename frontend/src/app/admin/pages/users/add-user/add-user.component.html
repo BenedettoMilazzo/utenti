@@ -1,1 +1,73 @@
-<p>add-user works!</p>
+<div #modal class="modal fade" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <!-- Header -->
+      <div class="modal-header">
+        <h2 class="modal-title">Aggiungi Utente</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Body con form -->
+      <div class="modal-body">
+        <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+          
+          <!-- Nome -->
+<div class="mb-3">
+  <label for="nominativo" class="form-label">Nome</label>
+  <input type="text" id="nominativo" class="form-control"
+         name="nominativo" [(ngModel)]="nuovoUtente.nominativo"
+         placeholder="Inserisci il nome" required>
+</div>
+
+<!-- Email -->
+<div class="mb-3">
+  <label for="email" class="form-label">Email</label>
+  <input type="email" id="email" class="form-control"
+         name="email" [(ngModel)]="nuovoUtente.email"
+         placeholder="Inserisci l'email" required>
+</div>
+
+<!-- Password -->
+<div class="mb-3">
+  <label for="password" class="form-label">Password</label>
+  <input type="password" id="password" class="form-control"
+         name="password" [(ngModel)]="nuovoUtente.password"
+         placeholder="Inserisci la password" required>
+</div>
+
+<!-- Telefono -->
+<div class="mb-3">
+  <label for="telefono" class="form-label">Telefono</label>
+  <input type="text" id="telefono" class="form-control"
+         name="telefono" [(ngModel)]="nuovoUtente.telefono"
+         placeholder="Inserisci il numero di telefono">
+</div>
+
+<!-- Ruolo -->
+<div class="mb-3">
+  <label for="ruolo" class="form-label">Ruolo</label>
+  <select id="ruolo" class="form-select"
+          name="ruolo" [(ngModel)]="nuovoUtente.ruolo">
+    <option value="" disabled>Seleziona il ruolo</option>
+    <option value="user">User</option>
+    <option value="admin">Admin</option>
+  </select>
+</div>
+
+
+          <!-- Footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()">
+              Chiudi
+            </button>
+            <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">
+              Salva
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
